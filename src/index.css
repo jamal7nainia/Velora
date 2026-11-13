@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  --velora-ivory: #F5F3ED;
+  --velora-card-bg: #FAF9F5;
+  --velora-charcoal: #252923;
+  --velora-charcoal-muted: #5A5E55;
+  --velora-forest: #35624F;
+  --velora-forest-hover: #274B3C;
+  --velora-sand: #D8CDBB;
+  --velora-sand-subtle: #EAE4D8;
+
+  --font-display-en: 'Cormorant Garamond', Georgia, serif;
+  --font-body-en: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-display-ar: 'Amiri', 'Noto Naskh Arabic', Georgia, serif;
+  --font-body-ar: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--velora-ivory);
+    color: var(--velora-charcoal);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--velora-ivory);
+    color: var(--velora-charcoal);
+    font-family: var(--font-body-ar);
+    margin: 0;
+    overflow-x: clip;
+  }
+
+  html[lang="en"] body {
+    font-family: var(--font-body-en);
+  }
+
+  ::selection {
+    background-color: var(--velora-forest);
+    color: var(--velora-ivory);
+  }
+}
+
+.font-display {
+  font-family: var(--font-display-en);
+}
+
+html[lang="ar"] .font-display {
+  font-family: var(--font-display-ar);
+  letter-spacing: 0 !important;
+}
+
+/* Preserve Latin Cormorant Garamond for the VELORA wordmark in both languages */
+.font-brand-latin {
+  font-family: var(--font-display-en);
+}
+
+.font-body-en {
+  font-family: var(--font-body-en);
+}
+
+.font-body-ar {
+  font-family: var(--font-body-ar);
+}
+
+/* Sculptural SVG Clip Paths for Organic Editorial Integration */
+.mask-stepped-frame {
+  clip-path: url(#velora-stepped-clip);
+  -webkit-clip-path: url(#velora-stepped-clip);
+}
+
+.mask-bottle-silhouette {
+  clip-path: url(#velora-bottle-clip);
+  -webkit-clip-path: url(#velora-bottle-clip);
+}
+
+/* True Transparent PNG Cutout Styling */
+.cutout-png {
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 12px 24px rgba(37, 41, 35, 0.06));
+}
+
+/* Editorial Kicker with Flanking Hairlines */
+.editorial-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--velora-charcoal-muted);
+}
+
+html[lang="ar"] .editorial-kicker {
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.editorial-kicker::before,
+.editorial-kicker::after {
+  content: '';
+  display: inline-block;
+  width: 26px;
+  height: 1px;
+  background-color: var(--velora-sand);
+}
+
+.editorial-kicker-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--velora-charcoal-muted);
+}
+
+html[lang="ar"] .editorial-kicker-start {
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.editorial-kicker-start::before,
+.editorial-kicker-start::after {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background-color: var(--velora-sand);
+}
+
+/* Smooth Image Hover Zoom */
+.editorial-card-img {
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.group:hover .editorial-card-img {
+  transform: scale(1.045);
+}
+
+/* Subtle Continuous Marquee (LTR direction for seamless loop in both locales) */
+@keyframes velora-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-velora-marquee {
+  display: flex;
+  width: max-content;
+  direction: ltr;
+  animation: velora-marquee 34s linear infinite;
+}
+
+.animate-velora-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .editorial-card-img {
+    transition: none;
+  }
+  .group:hover .editorial-card-img {
+    transform: none;
+  }
+  .animate-velora-marquee {
+    animation: none;
+  }
+}
