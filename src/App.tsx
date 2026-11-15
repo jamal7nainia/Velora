@@ -14,13 +14,27 @@ import { FormatOptionId, FragranceId, Locale } from './data/veloraContent';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const LOCALE_STORAGE_KEY = 'velora_locale';
+
 export default function App() {
-  const [locale, setLocale] = useState<Locale>('ar');
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
+        if (saved === 'ar' || saved === 'en') {
+          return saved;
+        }
+      } catch {
+        // Fallback safely if localStorage is restricted
+      }
+    }
+    return 'ar';
+  });
   const [activeFragranceId, setActiveFragranceId] = useState<FragranceId | null>(null);
   const [drawerFormat, setDrawerFormat] = useState<FormatOptionId>('50ml');
   const pageRef = useRef<HTMLDivElement>(null);
 
-  // Sync <html lang> and <html dir> and refresh ScrollTrigger on language switch
+  // Sync <html lang> and <html dir>, save preferred language, and refresh ScrollTrigger on language switch
   useEffect(() => {
     const html = document.documentElement;
     html.lang = locale;
@@ -29,6 +43,12 @@ export default function App() {
       locale === 'ar'
         ? 'VELORA — دار العطور العربية المعاصرة'
         : 'VELORA — Contemporary Arabian Fragrance House';
+
+    try {
+      localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+    } catch {
+      // Ignore localStorage quota or private mode restrictions
+    }
 
     const timer = window.setTimeout(() => {
       ScrollTrigger.refresh();
