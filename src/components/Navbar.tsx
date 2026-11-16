@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight, Menu, Search, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { FRAGRANCES, FragranceId, Locale } from '../data/veloraContent';
+import { LanguageToggle } from './LanguageToggle';
 import { VeloraCrest } from './SculpturalMasks';
 
 interface NavbarProps {
@@ -200,37 +201,10 @@ export function Navbar({
           </div>
 
           {/* Precision-Engineered Segmented Language Switcher Pill */}
-          <div
-            role="group"
-            aria-label={isRtl ? 'تغيير اللغة' : 'Language switcher'}
-            dir="ltr"
-            className="inline-flex h-10 items-center rounded-full border border-[#D8CDBB] bg-[#FAF9F5] p-1 shrink-0"
-          >
-            <button
-              type="button"
-              onClick={() => onToggleLocale('ar')}
-              aria-pressed={locale === 'ar'}
-              className={`font-body-ar inline-flex h-8 items-center justify-center rounded-full px-3 text-[12px] font-medium leading-none transition-all duration-200 ${
-                locale === 'ar'
-                  ? 'bg-[#35624F] text-[#F5F3ED] shadow-xs'
-                  : 'text-[#5A5E55] hover:text-[#252923]'
-              }`}
-            >
-              عربي
-            </button>
-            <button
-              type="button"
-              onClick={() => onToggleLocale('en')}
-              aria-pressed={locale === 'en'}
-              className={`font-body-en inline-flex h-8 items-center justify-center rounded-full px-3 text-[11px] font-semibold tracking-[0.08em] leading-none transition-all duration-200 ${
-                locale === 'en'
-                  ? 'bg-[#35624F] text-[#F5F3ED] shadow-xs'
-                  : 'text-[#5A5E55] hover:text-[#252923]'
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          <LanguageToggle
+            locale={locale}
+            onToggleLocale={onToggleLocale}
+          />
 
           {/* Primary Sample Set CTA */}
           <button

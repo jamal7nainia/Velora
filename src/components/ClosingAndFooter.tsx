@@ -1,6 +1,7 @@
 import { Check, Mail } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import { FragranceId, Locale, VELORA_IMAGES } from '../data/veloraContent';
+import { LanguageToggle } from './LanguageToggle';
 import { VeloraCrest } from './SculpturalMasks';
 
 interface ClosingAndFooterProps {
@@ -262,32 +263,12 @@ export function ClosingAndFooter({
               </p>
 
               {/* Footer Language Switcher Pill */}
-              <div
-                dir="ltr"
-                className="mt-4 inline-flex h-9 items-center rounded-full border border-[#D8CDBB] bg-[#FAF9F5] p-1"
-              >
-                <button
-                  type="button"
-                  onClick={() => onToggleLocale('ar')}
-                  className={`font-body-ar inline-flex h-7 items-center justify-center rounded-full px-3 text-[11.5px] font-medium transition-all ${
-                    locale === 'ar'
-                      ? 'bg-[#35624F] text-[#F5F3ED]'
-                      : 'text-[#5A5E55] hover:text-[#252923]'
-                  }`}
-                >
-                  عربي
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onToggleLocale('en')}
-                  className={`font-body-en inline-flex h-7 items-center justify-center rounded-full px-3 text-[10.5px] font-semibold tracking-[0.08em] transition-all ${
-                    locale === 'en'
-                      ? 'bg-[#35624F] text-[#F5F3ED]'
-                      : 'text-[#5A5E55] hover:text-[#252923]'
-                  }`}
-                >
-                  EN
-                </button>
+              <div className="mt-4">
+                <LanguageToggle
+                  locale={locale}
+                  onToggleLocale={onToggleLocale}
+                  size="compact"
+                />
               </div>
             </div>
           </div>
