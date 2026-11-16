@@ -9,6 +9,7 @@ interface LanguageToggleProps {
 }
 
 const ANIMATION_DURATION_MS = 320;
+const LOCALE_STORAGE_KEY = 'velora_locale';
 
 export function LanguageToggle({
   locale,
@@ -57,7 +58,15 @@ export function LanguageToggle({
 
     timerRef.current = window.setTimeout(() => {
       isAnimatingRef.current = false;
+      // Persist chosen language to localStorage before reloading
+      try {
+        localStorage.setItem(LOCALE_STORAGE_KEY, target);
+      } catch {
+        // Fallback safely if storage is unavailable
+      }
       onToggleLocale(target);
+      // Auto-refresh the page immediately upon animation completion
+      window.location.reload();
     }, ANIMATION_DURATION_MS);
   };
 
